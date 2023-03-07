@@ -1,0 +1,10 @@
+#import Book from 'book.graphql'
+
+input AddBook {
+    title: String!
+    author: String!
+}
+
+type Mutation {
+    addBook(input: AddBook!): Book
+}

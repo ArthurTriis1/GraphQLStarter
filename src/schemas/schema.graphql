@@ -1,2 +1,3 @@
 #import Book from 'book.graphql'
 #import Query from 'query.graphql'
+#import Mutation from 'mutation.graphql'
