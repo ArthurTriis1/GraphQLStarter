@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
+import { Context } from "../../index";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -29,6 +30,9 @@ export type Query = {
 	__typename?: "Query";
 	books?: Maybe<Array<Maybe<Book>>>;
 };
+
+export type WithIndex<TObject> = TObject & Record<string, any>;
+export type ResolversObject<TObject> = WithIndex<TObject>;
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -136,42 +140,42 @@ export type DirectiveResolverFn<
 ) => TResult | Promise<TResult>;
 
 /** Mapping between all available schema types and the resolvers types */
-export type ResolversTypes = {
+export type ResolversTypes = ResolversObject<{
 	Book: ResolverTypeWrapper<Book>;
 	Boolean: ResolverTypeWrapper<Scalars["Boolean"]>;
 	Query: ResolverTypeWrapper<{}>;
 	String: ResolverTypeWrapper<Scalars["String"]>;
-};
+}>;
 
 /** Mapping between all available schema types and the resolvers parents */
-export type ResolversParentTypes = {
+export type ResolversParentTypes = ResolversObject<{
 	Book: Book;
 	Boolean: Scalars["Boolean"];
 	Query: {};
 	String: Scalars["String"];
-};
+}>;
 
 export type BookResolvers<
-	ContextType = any,
+	ContextType = Context,
 	ParentType extends ResolversParentTypes["Book"] = ResolversParentTypes["Book"]
-> = {
+> = ResolversObject<{
 	author?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
 	title?: Resolver<Maybe<ResolversTypes["String"]>, ParentType, ContextType>;
 	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
+}>;
 
 export type QueryResolvers<
-	ContextType = any,
+	ContextType = Context,
 	ParentType extends ResolversParentTypes["Query"] = ResolversParentTypes["Query"]
-> = {
+> = ResolversObject<{
 	books?: Resolver<
 		Maybe<Array<Maybe<ResolversTypes["Book"]>>>,
 		ParentType,
 		ContextType
 	>;
-};
+}>;
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = Context> = ResolversObject<{
 	Book?: BookResolvers<ContextType>;
 	Query?: QueryResolvers<ContextType>;
-};
+}>;
