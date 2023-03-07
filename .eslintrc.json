@@ -23,6 +23,7 @@
           "selector": "interface",
           "format": ["PascalCase"]
         }
-      ]
+      ],
+	  "@typescript-eslint/ban-types": "off"
     }
   }

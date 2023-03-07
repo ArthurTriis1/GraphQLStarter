@@ -7,9 +7,13 @@
   "scripts": {
     "dev": "tsx watch ./index.ts",
     "build": "tsup ./index.ts",
-    "serve": "node dist/index.js"
+    "serve": "node dist/index.js",
+    "generate": "graphql-codegen --config codegen.ts && eslint --fix ./src/generated/graphql.ts"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "3.2.1",
+    "@graphql-codegen/typescript": "3.0.1",
+    "@graphql-codegen/typescript-resolvers": "3.1.0",
     "@types/node": "^18.14.6",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
