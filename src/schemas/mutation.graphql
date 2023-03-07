@@ -1,5 +1,3 @@
-#import Book from 'book.graphql'
-
 input AddBook {
     title: String!
     author: String!

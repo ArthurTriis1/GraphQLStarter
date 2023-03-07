@@ -1,5 +1,3 @@
-#import Book from 'book.graphql'
-
 type Query { #Especial type Query
     books: [Book]
     book(index: Int!): Book
