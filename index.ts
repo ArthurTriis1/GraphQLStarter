@@ -1,5 +1,7 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import { GraphQLFileLoader } from "@graphql-tools/graphql-file-loader";
+import { loadSchemaSync } from "@graphql-tools/load";
 
 const books = [
 	// Mock de dados
@@ -13,24 +15,16 @@ const books = [
 	},
 ];
 
-// Tipagem do GraphQL
-const typeDefs = `#graphql
-	type Book {
-		title: String
-		author: String
-	}
-
-	type Query { #Especial type Query
-		books: [Book]
-	}
-`;
-
 const resolvers = {
 	// Resolver
 	Query: {
 		books: () => books,
 	},
 };
+
+const typeDefs = loadSchemaSync("src/graphql/schemas/schema.graphql", {
+	loaders: [new GraphQLFileLoader()],
+});
 
 //Inicialização do servidor
 const server = new ApolloServer({
